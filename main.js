@@ -91,9 +91,9 @@ const app = {
         $('.listSong').innerHTML = htmls.join('')
     },
     autoplaysong: function(){
+        audio.muted = false;
         setTimeout(function(){
-            audio.play();
-            audio.muted = false;
+            audio.play();            
             app.isPLaying = true;
             playing.classList.remove('fa-play');
             playing.classList.add('fa-pause');
