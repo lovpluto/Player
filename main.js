@@ -90,6 +90,15 @@ const app = {
         })
         $('.listSong').innerHTML = htmls.join('')
     },
+    autoplaysong: function(){
+        setTimeout(function(){
+            audio.play();
+            audio.muted = false;
+            app.isPLaying = true;
+            playing.classList.remove('fa-play');
+            playing.classList.add('fa-pause');
+        }, 2000)
+    },
     defineProperti: function(){
         Object.defineProperty(this, 'currentSong', {
            get: function(){
@@ -277,14 +286,7 @@ const app = {
         audio.src = this.currentSong.path;
     },
 
-    autoplaysong: function(){
-        setTimeout(function(){
-            audio.play();
-            app.isPLaying = true;
-            playing.classList.remove('fa-play');
-            playing.classList.add('fa-pause');
-        }, 2000)
-    },
+    
 
     autoNextSong: function(){
         audio.ontimeupdate = function(){
