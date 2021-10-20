@@ -92,8 +92,8 @@ const app = {
     },
     autoplaysong: function(){
         setTimeout(function(){
-            audio.load();
-            audio.muted = 'muted'
+            audio.play();
+            audio.muted = false;
             app.isPLaying = true;
             playing.classList.remove('fa-play');
             playing.classList.add('fa-pause');
