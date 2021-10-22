@@ -96,6 +96,17 @@ ul{
 .listSong{
     margin-top: 410px;
 }
+.listSong__item:active{
+    opacity: .6;
+    cursor: pointer ;
+}
+.active .listSong__item--option{
+    color: #fff;
+}
+.listSong .active{
+    background-color: rgba(4, 83, 255, 0.3);
+
+}
 .listSong__item{
     display:flex;
     background-color: rgba(222, 222, 222, .3);
@@ -103,6 +114,7 @@ ul{
     border-radius: 3px;
     align-items: center;
     margin-bottom: 10px;
+    cursor: pointer ;
     
 }
 .listSong__item img{
@@ -207,3 +219,5 @@ ul{
   .volume-hover{
       padding: 5px;
   }
+
+  

@@ -14,9 +14,11 @@ const btnnext = $('.btn-next')
 const btnprev = $('.btn-prev')
 const btnrepeat = $('.btn-repeat')
 const btnrandom = $('.btn-random')
+const listSong = $('.listSong')
 
 
-// const playlist = $('.listSong')
+
+
 const app = {
     randomMix : false,
     repeat: false,
@@ -71,13 +73,109 @@ const app = {
             path: './assets/song/TinhThoiXotXaSEESINGSHARE1-HaAnhTuan-4652191.mp3',
             image: './assets/img/1605596266129_500.jpg'
         },
+        {
+            name: 'Di Vang Nhat Nhoa',
+            singer: 'Lan Nha',
+            path: './assets/song/Di-Vang-Nhat-Nhoa-Lan-Nha.mp3',
+            image: './assets/img/1.jpg'
+        },
+        {
+            name: 'Chuyen Cua Mua Dong',
+            singer: 'Ha Anh Tuan',
+            path: './assets/song/ChuyenCuaMuaDongSEESINGSHARE1-HaAnhTuan-4692692.mp3',
+            image: './assets/img/1605596087742_500.jpg'
+        },
+        {
+            name: 'Di Dau De Thay Hoa Bay',
+            singer: 'Ha Anh Tuan',
+            path: './assets/song/DiDauDeThayHoaBaySEESINGSHARE3-HaAnhTuan-5492021.mp3',
+            image: './assets/img/1605596266129_500.jpg'
+        },
+        {
+            name: 'Nguoi Tinh Mua Dong',
+            singer: 'Ha Anh Tuan',
+            path: './assets/song/NguoiTinhMuaDongSEESINGSHARE2-HaAnhTuan-5104816.mp3',
+            image: './assets/img/1605596266129_500.jpg'
+        },
+        {
+            name: 'Giac Mo Chi La Giac Mo',
+            singer: 'Ha Anh Tuan',
+            path: './assets/song/GiacMoChiLaGiacMoSeeSingShare2-HaAnhTuan-5082049.mp3',
+            image: './assets/img/1605596087742_500.jpg'
+        },
+        {
+            name: 'Qua Con Me',
+            singer: 'Ha Anh Tuan',
+            path: './assets/song/QuaConMeSEESINGSHARE3-HaAnhTuan-5492009.mp3',
+            image: './assets/img/1605596488216_500.jpg'
+        },
+        {
+            name: 'Tai But Anh Yeu Em',
+            singer: 'Ha Anh Tuan',
+            path: './assets/song/TaiButAnhYeuEm-HaAnhTuan-5112161.mp3',
+            image: './assets/img/1605596087742_500.jpg'
+        },
+        {
+            name: 'Tinh Thoi Xot Xa',
+            singer: 'Ha Anh Tuan',
+            path: './assets/song/TinhThoiXotXaSEESINGSHARE1-HaAnhTuan-4652191.mp3',
+            image: './assets/img/1605596266129_500.jpg'
+        },
+        {
+            name: 'Di Vang Nhat Nhoa',
+            singer: 'Lan Nha',
+            path: './assets/song/Di-Vang-Nhat-Nhoa-Lan-Nha.mp3',
+            image: './assets/img/1.jpg'
+        },
+        {
+            name: 'Chuyen Cua Mua Dong',
+            singer: 'Ha Anh Tuan',
+            path: './assets/song/ChuyenCuaMuaDongSEESINGSHARE1-HaAnhTuan-4692692.mp3',
+            image: './assets/img/1605596087742_500.jpg'
+        },
+        {
+            name: 'Di Dau De Thay Hoa Bay',
+            singer: 'Ha Anh Tuan',
+            path: './assets/song/DiDauDeThayHoaBaySEESINGSHARE3-HaAnhTuan-5492021.mp3',
+            image: './assets/img/1605596266129_500.jpg'
+        },
+        {
+            name: 'Nguoi Tinh Mua Dong',
+            singer: 'Ha Anh Tuan',
+            path: './assets/song/NguoiTinhMuaDongSEESINGSHARE2-HaAnhTuan-5104816.mp3',
+            image: './assets/img/1605596266129_500.jpg'
+        },
+        {
+            name: 'Giac Mo Chi La Giac Mo',
+            singer: 'Ha Anh Tuan',
+            path: './assets/song/GiacMoChiLaGiacMoSeeSingShare2-HaAnhTuan-5082049.mp3',
+            image: './assets/img/1605596087742_500.jpg'
+        },
+        {
+            name: 'Qua Con Me',
+            singer: 'Ha Anh Tuan',
+            path: './assets/song/QuaConMeSEESINGSHARE3-HaAnhTuan-5492009.mp3',
+            image: './assets/img/1605596488216_500.jpg'
+        },
+        {
+            name: 'Tai But Anh Yeu Em',
+            singer: 'Ha Anh Tuan',
+            path: './assets/song/TaiButAnhYeuEm-HaAnhTuan-5112161.mp3',
+            image: './assets/img/1605596087742_500.jpg'
+        },
+        {
+            name: 'Tinh Thoi Xot Xa',
+            singer: 'Ha Anh Tuan',
+            path: './assets/song/TinhThoiXotXaSEESINGSHARE1-HaAnhTuan-4652191.mp3',
+            image: './assets/img/1605596266129_500.jpg'
+        },
         
     ],
     render: function(){
         
-        const htmls = this.songs.map(song => {
+        const htmls = this.songs.map((song , index) => {
             return `
-            <li class="listSong__item">
+            <li data-index="${index}"" class="listSong__item ${index === app.currentIndex ? 'active' : ''}">
                 <img src="${song.image}" alt="" class="listSong__item--img">
                 <div class="listSong__item--bazer">
                     <div class="listSong__item--title">
@@ -88,18 +186,10 @@ const app = {
                 </div>
             </li>`
         })
-        $('.listSong').innerHTML = htmls.join('')
+        listSong.innerHTML = htmls.join('')
     },
-    autoplaysong: function(){
-        audio.muted = true;
-        setTimeout(function(){
-            audio.play();
-            audio.muted = false;            
-            app.isPLaying = true;
-            playing.classList.remove('fa-play');
-            playing.classList.add('fa-pause');
-        }, 2000)
-    },
+    
+    
     defineProperti: function(){
         Object.defineProperty(this, 'currentSong', {
            get: function(){
@@ -115,7 +205,6 @@ const app = {
             imgMusic.style.width = newimgMusic > 0 ? newimgMusic +'px' : 0
             imgMusic.style.opacity = newimgMusic / imgMusicWidth
         };
-
 // Timeupdate duration audio 
 
         setInterval(() => {
@@ -140,7 +229,15 @@ const app = {
         progress.onchange = function(){
             audio.currentTime = (audio.duration / 100) * progress.value
         };
+// animation disk
 
+        const animateDisk = cdthumb.animate([
+            { transform: 'rotate(360deg)'}
+        ],{
+            duration: 10000,
+            iterations: Infinity
+        });
+        animateDisk.pause()
 // setting Volume audio  
     
 
@@ -181,29 +278,43 @@ const app = {
                 
             }
         };
+        
 // lick on play/pause
         btnplay.onclick = function(){
             if(app.isPLaying){
-                app.isPLaying = false;
             audio.pause()
-            playing.classList.remove('fa-pause');
-            playing.classList.add('fa-play');
-            }else{
-            app.isPLaying = true;
+            animateDisk.pause()
+            }else{            
             audio.play()
+            animateDisk.play()
+        }}
+
+        audio.onplay = function(){
+            app.isPLaying = true;
+            playing.classList.add('fa-pause');
             playing.classList.remove('fa-play');
-            playing.classList.add('fa-pause');}
+        
+           
         };
+        audio.onpause = function(){
+            app.isPLaying = false;
+            playing.classList.add('fa-play');
+            playing.classList.remove('fa-pause');
+        }
+
 
 //contruction choise song
         let choiseSong = function(curIndex){
             heading.textContent = app.songs[curIndex].name;
             cdthumb.src = app.songs[curIndex].image;
             audio.src = app.songs[curIndex].path;
+            app.render()
+            app.scrollToActiveSong()
         }        
 // clickon next song
         btnnext.onclick = function(){
             if(app.randomMix){
+
                 let random = Math.floor(Math.random() * app.songs.length);
                     for (let i = 0 ; i < 1000 ; i++){
                         if (random === app.currentIndex ){
@@ -215,15 +326,19 @@ const app = {
                     }
                 choiseSong(app.currentIndex);
                 audio.autoplay = true;
+                
+               
             }else{        
                     if (app.currentIndex < app.songs.length - 1){
                     app.currentIndex = app.currentIndex + 1;
                     choiseSong(app.currentIndex);
                     audio.autoplay = true;
+                        
                     }else{
                         app.currentIndex = 0;
                         choiseSong(app.currentIndex);
                         audio.autoplay = true;
+                        
                     }
         }};
 // click on prevous song
@@ -232,6 +347,7 @@ const app = {
             app.currentIndex = app.currentIndex - 1;
             choiseSong(app.currentIndex);
             audio.autoplay = true;
+            
         }else{
             alert('Đây là bài đầu tiên của List, Không có bài trước')
         }
@@ -279,7 +395,40 @@ const app = {
             }
         }
         
+// Chọn bài trực tiếp 
+        listSong.onclick = function(e){
+            app.currentIndex = parseInt(e.target.closest('.listSong__item:not(.active)').getAttribute('data-index'))
+            if(e.target.closest('.listSong__item:not(.active)') || e.target.closest('.listSong__item--option') ){
+                if(e.target.closest('.listSong__item:not(.active)') && !e.target.closest('.listSong__item--option')){
+                    choiseSong(e.target.closest('.listSong__item:not(.active)').getAttribute('data-index'));
+                    audio.autoplay = true;
+                };
+            }
+        }        
+    },
+    //  scroll chọn bài
+    scrollToActiveSong: function(){
+        setTimeout(() => {
+            $('.listSong__item.active').scrollIntoView({
+                behavior : 'smooth',
+                block : 'end'
+            })
+        }, 200)
 
+    },
+    autoplaysong: function(){
+        setTimeout(function(){
+            btnplay.click(function(){
+                audio.trigger("play");
+              });
+            // audio.play();
+            // btnplay.click(function(){
+            //     this.paused ? this.play() : this.pause();
+            // });         
+            // app.isPLaying = true;
+            // playing.classList.remove('fa-play');
+            // playing.classList.add('fa-pause');
+        }, 2000)
     },
     loadCurrentSong(){
         heading.textContent = this.currentSong.name;
@@ -302,7 +451,7 @@ const app = {
         this.handleEvents()
         this.loadCurrentSong()
         this.render()
-        this.autoplaysong()
+        // this.autoplaysong()
         this.autoNextSong()
         
     }
