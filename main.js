@@ -1,5 +1,8 @@
 const $ = document.querySelector.bind(document)
 const $$ = document.querySelectorAll.bind(document)
+
+const PLAYER_STORAGE_KEY = 'JACK_PLAYER';
+
 const imgMusic = $('.imgMusic img');
 const heading = $('.nameSing--Name');
 const cdthumb = $('.imgMusic img');
@@ -24,6 +27,7 @@ const app = {
     repeat: false,
     currentIndex:0,
     isPLaying : false,
+    config: JSON.parse(localStorage.getItem(PLAYER_STORAGE_KEY)) || {},
     songs: [
         {
             name: 'Di Vang Nhat Nhoa',
@@ -171,6 +175,12 @@ const app = {
         },
         
     ],
+
+    setConfig : function(key, value){
+        this.config[key] = value;
+        localStorage.setItem(PLAYER_STORAGE_KEY, JSON.stringify(this.config))
+    },
+
     render: function(){
         
         const htmls = this.songs.map((song , index) => {
@@ -355,27 +365,34 @@ const app = {
 
 // click on repeat song
         btnrepeat.onclick = function(){
+            
             if(app.repeat){
                 app.repeat = false;
                 audio.loop = false;
                 btnrepeat.style.color = 'black'
+                app.setConfig('repeat', app.repeat)
+
             }else{
                 app.repeat = true;
                 audio.loop = true
                 btnrepeat.style.color = 'red'
+                app.setConfig('repeat', app.repeat)
+
             }
         }
 
 // click turn on random song
         btnrandom.onclick=function(){
-            console.log(app.randomMix)
+            
             if (app.randomMix){
                 app.randomMix = false;
                 app.autoNextSong();
-                btnrandom.style.color = 'black'
+                btnrandom.style.color = 'black';
+                app.setConfig('randomMix', app.randomMix)
             }else{
                 app.randomMix = true;
                 btnrandom.style.color = 'red';
+                app.setConfig('randomMix', app.randomMix)
                 audio.ontimeupdate = function(){
                     if (audio.ended){
                         let random = Math.floor(Math.random() * app.songs.length);
@@ -390,6 +407,9 @@ const app = {
                         console.log(app.currentIndex)
                         choiseSong(app.currentIndex);
                         audio.autoplay = true;
+                        
+                
+
                     }
                 }
             }
@@ -436,7 +456,11 @@ const app = {
         audio.src = this.currentSong.path;
     },
 
-    
+    loadConfig: function(){
+        app.randomMix = app.config["randomMix"]
+
+        app.repeat = app.config["repeat"]
+    },
 
     autoNextSong: function(){
         audio.ontimeupdate = function(){
@@ -453,7 +477,17 @@ const app = {
         this.render()
         // this.autoplaysong()
         this.autoNextSong()
-        
+        this.loadConfig()
+        if(app.repeat){
+                btnrepeat.style.color = 'red'
+            }else{
+                btnrepeat.style.color = 'black'
+        }
+        if (app.randomMix){
+            btnrandom.style.color = 'red';
+        }else{
+            btnrandom.style.color = 'black';    
+        }
     }
 }
 
